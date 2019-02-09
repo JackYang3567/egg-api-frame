@@ -5,7 +5,10 @@
   "private": true,
   "dependencies": {
     "egg": "^2.2.1",
-    "egg-scripts": "^2.5.0"
+    "egg-scripts": "^2.5.0",
+    "egg-sequelize": "^4.3.1",
+    "mysql2": "^1.6.5",
+    "sequelize-cli": "^5.4.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -27,13 +30,13 @@
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
-    "lint-fix":"eslint . --fix",
+    "lint-fix": "eslint . --fix",
     "test": "npm run lint-fix  && npm run test-local",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-    "m:new":"sequelize migration:create",
-    "m:up":"sequelize db:migration",
-    "m:down":"sequelize db:migration:undo"
+    "m:new": "sequelize migration:create",
+    "m:up": "sequelize db:migration",
+    "m:down": "sequelize db:migration:undo"
   },
   "ci": {
     "version": "8"

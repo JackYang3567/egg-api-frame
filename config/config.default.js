@@ -9,5 +9,13 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  config.sequelize = {  
+    dialect: 'mysql' ,
+    database: 'egg_api_frame',
+    host:'localhost',
+    port:'3306',
+    username:'root',
+    password:'',
+};
   return config;
 };
