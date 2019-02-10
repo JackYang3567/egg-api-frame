@@ -242,11 +242,23 @@ $ npm run m:new -- --name User
 ```
 
 #### 6）、修改user的migration文件逻辑
-打开编辑 ./app/migration/20190210013433-User.js 内容如下：
+  - 1、打开编辑 ./app/migration/20190210013433-User.js 内容见：
 [20190210013433-User.js](https://github.com/JackYang3567/egg-api-frame/blob/master/app/migration/20190210013433-User.js)
+  - 2、创建./app/model/user.js 文件，内容见：
+  [./app/model/user.js](https://github.com/JackYang3567/egg-api-frame/blob/master/app/model/user.js)
 
+#### 7）、同步user到数据库
+```
+$ ./node_modules/.bin/sequelize db:migrate --debug
+or
+$ npm run m:up --debug
+```
 
-#### 7）、创建user的migration
+#### 8）、向user添加数据
+```
+$ ./node_modules/.bin/sequelize seed:generate --name creat_user
+```
+运行上面命令，会生成一个文件：./app/seeder/20190210031240-creat_user.js
 ### Deploy
 
 ```bash
