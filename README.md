@@ -88,13 +88,15 @@ default-character-set =utf8
 这里的字符编码必须和/usr/share/mysql/charsets/Index.xml中一致。
 
 ### 2、远程连接设置
+如果MySql服务器没有设置远程连接，客户端连接时会报“Error No. 1130”错误
+
 把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。
 ```
 mysql> grant all privileges on *.* to root@'%'identified by 'root';
 ```
 如果是新用户而不是root，则要先新建用户
 ```
-mysql>create user 'username'@'%' identified by 'password'; 
+mysql> create user 'username'@'%' identified by 'password'; 
 ``` 
 此时就可以进行远程连接了。
 # =======================================
@@ -164,7 +166,7 @@ exports.sequelize = {
 ```
 config.sequelize = {  
     dialect: 'mysql' ,
-    database: 'egg-api-frame',
+    database: 'egg_api_frame',
     host:'localhost',
     port:'3306',
     username:'root',
@@ -225,10 +227,26 @@ $ mkdir migration
 $ mkdir model
 $ mkdir seeder 
 ```
-#### 4）、创建user的migration
+#### 4）、创建egg_api_frame数据库
+使用Sequel pro（mac） 或SQLyog(windows)数据库图形化界面创建数据库
+
+也可用mysql命令行创建数据库
+```
+mysql> create database egg_api_frame;
+```
+#### 5）、创建user的migration
 ```
 $ ./node_modules/.bin/sequelize model:generate --attributes --name User
+or
+$ npm run m:new -- --name User
 ```
+
+#### 6）、修改user的migration文件逻辑
+打开编辑 ./app/migration/20190210013433-User.js 内容如下：
+[20190210013433-User.js](https://github.com/JackYang3567/egg-api-frame/blob/master/app/migration/20190210013433-User.js)
+
+
+#### 7）、创建user的migration
 ### Deploy
 
 ```bash
