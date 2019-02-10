@@ -4,11 +4,18 @@
   "description": "a about egg api frame",
   "private": true,
   "dependencies": {
+    "add": "^2.0.6",
+    "bcrypt": "^3.0.4",
     "egg": "^2.2.1",
     "egg-scripts": "^2.5.0",
     "egg-sequelize": "^4.3.1",
+    "egg-y-validator": "^1.2.0",
+    "eggmsgsession": "^1.0.0",
     "mysql2": "^1.6.5",
-    "sequelize-cli": "^5.4.0"
+    "ramda": "^0.26.1",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0",
+    "yarn": "^1.13.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -18,6 +25,8 @@
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {

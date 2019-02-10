@@ -13,6 +13,56 @@ git push -u origin master
 git remote add origin https://github.com/JackYang3567/egg-api-frame.git
 git push -u origin master
 ```
+
+# ======================================
+# yarn的安装及使用
+## 1、CentOS中安装yarn
+```
+# yum install yarn
+```
+## 2、使用yarn全局安装包
+```
+yarn global add nrm --prefix /usr/local
+yarn global add egg-init --prefix /usr/local
+yarn global add create-react-app --prefix /usr/local
+```
+## 3、yarn常用操作
+###  1）、初始化一个新项目
+```
+$ yarn init
+```
+###  2）、添加依赖包
+```
+$ yarn add [package]
+$ yarn add [package]@[version]
+$ yarn add [package]@[tag]
+```
+###  3）、将依赖项添加到不同依赖项类别中
+
+分别添加到 devDependencies、peerDependencies 和 optionalDependencies 类别中：
+```
+$ yarn add [package] --dev
+$ yarn add [package] --peer
+$ yarn add [package] --optional
+```
+
+###  4）、升级依赖包
+```
+$ yarn upgrade [package]
+$ yarn upgrade [package]@[version]
+$ yarn upgrade [package]@[tag]
+```
+
+###  5）、移除依赖包
+```
+$ yarn remove [package]
+```
+###  6）、安装项目的全部依赖
+```
+$ yarn
+或者
+$ yarn install
+```
 # ======================================
 # centos7 mysql数据库安装和配置
 ## 一、系统环境
@@ -115,6 +165,8 @@ $ nvm install 11.9.0  #此处安装的是node 的11.9.0版本
 确定已全局安装了egg-init脚手架。
 ```
 $ npm i egg-init -g
+or (推荐用下列方法)
+$ yarn global add egg-init --prefix /usr/local
 ```
 使用egg-init脚手架创建项目
 ```
@@ -143,7 +195,15 @@ or (如果用的是vagrant)在浏览器地址栏中输入：
 #### 1）、安装相关依赖
 ```
 $ cd egg-api-frame
-$ npm install egg-sequelize mysql2 sequelize-cli --save
+$ npm install sequelize egg-sequelize mysql2 sequelize-cli --save
+or 
+$ yarn add sequelize egg-sequelize mysql2 sequelize-cli
+
+#---------
+$ yarn add eggmsgsession
+$ yarn add egg-y-validator
+$ yarn add eslint-plugin-prettier prettier --dev
+
 ```
 #### 2）、配置sequelize
 修改 ./package.json文件，添加如下几行：
@@ -160,6 +220,16 @@ exports.sequelize = {
     enable: true ,
     package: 'egg-sequelize'
 };
+
+exports.flash = {  
+    enable: true ,
+    package: 'eggmsgsession'
+};
+
+exports.validator = {  
+    enable: true ,
+    package: 'egg-y-validator'
+};
 ```
 
 #### 4）、配置config/config.default.js
@@ -172,6 +242,23 @@ config.sequelize = {
     username:'root',
     password:'',
 };
+
+config.flash = {
+    key: Symbol.for('flash')
+};
+
+config.validator = {
+   open: 'zh-CN',
+   languages: {
+       'zh-CN': {
+           required: '必须填%s 字段'
+       }
+   },
+   async formatter(ctx, error){
+     info('[egg-y-validator]-> %s', JSON.stringify(error, ''))
+     throw new Error(error[0].message)
+   }
+}
 ```
 
 ###　2、数据库配置
@@ -251,7 +338,7 @@ $ npm run m:new -- --name User
 ```
 $ ./node_modules/.bin/sequelize db:migrate --debug
 or
-$ npm run m:up --debug
+$ npm run m:up -- --debug
 ```
 
 #### 8）、向user添加数据
@@ -259,6 +346,14 @@ $ npm run m:up --debug
 $ ./node_modules/.bin/sequelize seed:generate --name creat_user
 ```
 运行上面命令，会生成一个文件：./app/seeder/20190210031240-creat_user.js
+
+修改文件内容见：
+[20190210031240-creat_user.js](https://github.com/JackYang3567/egg-api-frame/blob/master/app/seeder/20190210031240-creat_user.js)
+
+然后再运行下列命令：
+```
+$ ./node_modules/.bin/sequelize db:seed:all
+```
 ### Deploy
 
 ```bash
