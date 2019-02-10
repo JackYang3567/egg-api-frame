@@ -13,7 +13,91 @@ git push -u origin master
 git remote add origin https://github.com/JackYang3567/egg-api-frame.git
 git push -u origin master
 ```
+# ======================================
+# centos7 mysql数据库安装和配置
+## 一、系统环境
+升级系统版本
+```
+# yum update
+```
+升级完成后系统版本为
+```
+[root@yl-web yl]# cat /etc/redhat-release 
+CentOS Linux release 7.1.1503 (Core) 
+```
 
+## 二、mysql安装
+### 1、官网下载安装mysql-server
+```
+# wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+# rpm -ivh mysql-community-release-el7-5.noarch.rpm
+# yum install mysql-community-server
+
+#yum install mysql
+#yum install mysql-server
+#yum install mysql-devel
+```
+### 2、安装成功后重启mysql服务。
+```
+# service mysqld restart
+```
+### 3、初次安装mysql，root账户没有密码。
+```
+# mysql -u root 
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.6.43 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> exit;
+Bye
+
+```
+### 4、设置密码
+```
+mysql> set password for 'root'@'localhost' =password('root');
+
+```
+## 三、配置mysql
+### 1、编码
+mysql配置文件为/etc/my.cnf
+
+最后加上编码配置
+```
+[mysql]
+default-character-set =utf8
+```
+这里的字符编码必须和/usr/share/mysql/charsets/Index.xml中一致。
+
+### 2、远程连接设置
+把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。
+```
+mysql> grant all privileges on *.* to root@'%'identified by 'root';
+```
+如果是新用户而不是root，则要先新建用户
+```
+mysql>create user 'username'@'%' identified by 'password'; 
+``` 
+此时就可以进行远程连接了。
+# =======================================
 # 用egg创建一个api框架（egg-api-frame）
 
 一个Egg相关的API框架,确定已安装最新版本的node, 
