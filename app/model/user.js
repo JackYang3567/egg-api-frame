@@ -25,12 +25,10 @@ module.exports = app => {
   });
 
   User.associate = function() {
-    app.model.Invitation.belongsTo(app.model.User, {
+   app.model.Invitation.belongsTo(app.model.User, {
       foreignKey: 'user_id'
     })
-    app.model.User.hasMany(app.model.Invitation, {
-      foreignKey: 'user_id'
-    })
+    
 
     app.model.Invitation.belongsTo(app.model.User, {
       foreignKey: 'use_user_id',
@@ -40,6 +38,10 @@ module.exports = app => {
     app.model.User.hasOne(app.model.Invitation, {
       foreignKey: 'use_user_id',
       as: 'my_used_invitaion'
+    })
+
+    app.model.User.hasMany(app.model.Invitation, {
+      foreignKey: 'user_id'
     })
   }
 
