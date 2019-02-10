@@ -203,7 +203,9 @@ $ yarn add sequelize egg-sequelize mysql2 sequelize-cli
 $ yarn add eggmsgsession
 $ yarn add egg-y-validator
 $ yarn add eslint-plugin-prettier prettier --dev
-
+$ yarn add ramda
+$ yarn add bcrypt
+$ yarn add uuid
 ```
 #### 2）、配置sequelize
 修改 ./package.json文件，添加如下几行：

@@ -8,6 +8,9 @@ module.exports = app => {
     use_user_id: INTEGER,
     use_username: STRING(40)
   })
+
+
+  
   /**
    * * 检验邀请码是否有效
    * @param {string} code 邀请码
